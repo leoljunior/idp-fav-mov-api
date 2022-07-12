@@ -2,8 +2,8 @@ package com.leoLima.favMovies.dtos;
 
 public interface View {
 
-	interface One{}
+	interface AllAttributes{}
 
-	interface Two{}
+	interface SomeAttributes{}
 	
 }

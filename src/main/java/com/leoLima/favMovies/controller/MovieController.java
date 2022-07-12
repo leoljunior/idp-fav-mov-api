@@ -1,10 +1,15 @@
 package com.leoLima.favMovies.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,26 +38,51 @@ public class MovieController {
 	
 	
 	@PostMapping
-	public MovieDTO addMovie(@RequestBody MovieInputDTO movieInputDTO) {
+	@JsonView(View.AllAttributes.class)
+	public ResponseEntity<Object> addMovie(@RequestBody MovieInputDTO movieInputDTO) {		
+		Movie movie = imdbApiService.getMovieByImdbId(movieInputDTO.getImdbID());		
+		if (movie.getImdbID() == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie not found");
+		}
 		
-		Movie movie = imdbApiService.getMovieByImdbId(movieInputDTO.getImdbID());
+		Optional<Movie> movieByImdbId = movieService.getMovieByImdbId(movie.getImdbID());
+		if (movieByImdbId.isPresent()) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("This movie is already in your favorites");			
+		}
 		
-		movieService.addNewMovie(movie, movieInputDTO.getCategory());
-		
-		MovieDTO movieDto = modelMapper.map(movie, MovieDTO.class);
-		
-		return movieDto;
+		movieService.addNewMovie(movie, movieInputDTO.getCategory());		
+		MovieDTO movieDto = modelMapper.map(movie, MovieDTO.class);		
+		return ResponseEntity.status(HttpStatus.CREATED).body(movieDto);
 	}
 	
-	@JsonView(View.Two.class)
 	@GetMapping
-	public List<MovieDTO> movies() {
-		
+	@JsonView(View.SomeAttributes.class)
+	public ResponseEntity<List<MovieDTO>> listAllmovies() {		
 		List<Movie> listAllMovies = movieService.listAllMovies();
-		List<MovieDTO> collect = listAllMovies.stream()
+		List<MovieDTO> movieList = listAllMovies.stream()
 			.map(p -> modelMapper.map(p, MovieDTO.class))
 			.collect(Collectors.toList());
-		return collect;
+		return ResponseEntity.status(HttpStatus.OK).body(movieList);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Object> getMovieById(@PathVariable Long id) {
+		Optional<Movie> movieById = movieService.getMovieById(id);
+		if (movieById.isPresent()) {
+			MovieDTO movieDto = modelMapper.map(movieById, MovieDTO.class);
+			return ResponseEntity.status(HttpStatus.OK).body(movieDto);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie not found");
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Object> updateMovie(@PathVariable Long id) {
+		Optional<Movie> movieById = movieService.getMovieById(id);
+		if (!movieById.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie not found");
+		}
+		movieService.deleteMovie(movieById.get());
+		return ResponseEntity.status(HttpStatus.OK).body("Movie deleted successfully");
 	}
 	
 }

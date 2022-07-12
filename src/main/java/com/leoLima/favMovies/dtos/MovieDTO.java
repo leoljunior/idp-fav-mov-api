@@ -11,66 +11,66 @@ import lombok.Setter;
 @JsonInclude(Include.NON_NULL)
 public class MovieDTO {
 	
-	@JsonView({View.One.class, View.Two.class})
+	@JsonView({View.AllAttributes.class, View.SomeAttributes.class})
 	private Long id;
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String imdbID;
 	
-	@JsonView({View.One.class, View.Two.class})
+	@JsonView({View.AllAttributes.class, View.SomeAttributes.class})
 	private String title;
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String year;	
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String rated;
 	
-	@JsonView({View.One.class, View.Two.class})
+	@JsonView({View.AllAttributes.class, View.SomeAttributes.class})
 	private String released;
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String runtime;	
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String genre;	
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String director;	
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String writer;
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String actors;	
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String plot;
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String language;
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String country;
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String awards;
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String poster;
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String imdbRating;
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String imdbVotes;
 	
-	@JsonView({View.One.class, View.Two.class})
+	@JsonView({View.AllAttributes.class, View.SomeAttributes.class})
 	private String type;
 	
-	@JsonView(View.One.class)
+	@JsonView(View.AllAttributes.class)
 	private String totalSeasons;
 	
-	@JsonView({View.One.class, View.Two.class})
+	@JsonView({View.AllAttributes.class, View.SomeAttributes.class})
 	private String category;
 }

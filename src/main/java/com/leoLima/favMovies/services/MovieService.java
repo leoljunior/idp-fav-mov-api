@@ -1,6 +1,9 @@
 package com.leoLima.favMovies.services;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,7 @@ public class MovieService {
 	
 	private CategoryService categoryService;
 	
+	@Transactional
 	public Movie addNewMovie(Movie movie, String categoryName) {
 		Category category = categoryService.getOrCreateCategory(categoryName);		
 		movie.setCategory(category);		
@@ -26,6 +30,19 @@ public class MovieService {
 	
 	public List<Movie> listAllMovies() {
 		return movieRepository.findAll();
+	}
+
+	public Optional<Movie> getMovieById(Long id) {
+		return movieRepository.findById(id);
+	}
+	
+	public Optional<Movie> getMovieByImdbId(String imdbId) {
+		return movieRepository.findByImdbID(imdbId);
+	}
+	
+	@Transactional
+	public void deleteMovie(Movie movie) {
+		movieRepository.delete(movie);
 	}
 	
 }
