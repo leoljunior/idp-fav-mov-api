@@ -66,6 +66,7 @@ public class MovieController {
 	}
 	
 	@GetMapping("/{id}")
+	@JsonView(View.AllAttributes.class)
 	public ResponseEntity<Object> getMovieById(@PathVariable Long id) {
 		Optional<Movie> movieById = movieService.getMovieById(id);
 		if (movieById.isPresent()) {
