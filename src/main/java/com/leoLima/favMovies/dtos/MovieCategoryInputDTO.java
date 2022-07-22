@@ -8,13 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class MovieInputDTO {
+public class MovieCategoryInputDTO {
 
-	@NotBlank
-	@NotNull
-	@NotEmpty
-	private String imdbID;
-	
 	@NotBlank
 	@NotNull
 	@NotEmpty

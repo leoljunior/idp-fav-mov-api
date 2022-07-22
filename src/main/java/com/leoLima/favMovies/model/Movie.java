@@ -72,6 +72,9 @@ public class Movie {
 	@JsonProperty("totalSeasons")
 	private String totalSeasons;
 	
+	@JsonProperty("BoxOffice")
+	private String boxOffice;
+	
 	@ManyToOne
 	private Category category;
 	

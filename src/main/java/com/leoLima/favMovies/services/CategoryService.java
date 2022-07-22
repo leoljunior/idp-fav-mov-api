@@ -3,6 +3,8 @@ package com.leoLima.favMovies.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.leoLima.favMovies.model.Category;
@@ -20,12 +22,25 @@ public class CategoryService {
 		return categoryRepository.findAll();
 	}
 	
+	@Transactional
 	public Category getOrCreateCategory(String categoryName) {
 		Optional<Category> category = categoryRepository.findByName(categoryName);
 		if (category.isPresent()) {
 			return category.get();
 		}
-		return categoryRepository.save(new Category(categoryName));
+		return categoryRepository.save(new Category(categoryName.toLowerCase()));
 	}
 	
+	public Optional<Category> getCategoryById(Long id) {
+		return categoryRepository.findById(id);
+	}
+	
+	@Transactional
+	public void deleteCategory(Category category) {
+		categoryRepository.delete(category);
+	}
+	
+	public Optional<Category> getCategoryByName(String name) {
+		return categoryRepository.findByName(name.toLowerCase());
+	}
 }

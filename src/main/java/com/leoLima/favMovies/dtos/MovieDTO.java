@@ -71,6 +71,9 @@ public class MovieDTO {
 	@JsonView(View.AllAttributes.class)
 	private String totalSeasons;
 	
+	@JsonView(View.AllAttributes.class)
+	private String boxOffice;
+	
 	@JsonView({View.AllAttributes.class, View.SomeAttributes.class})
 	private String category;
 }
