@@ -44,7 +44,7 @@ public class CategoryController {
 			
 		} catch (DataIntegrityViolationException e) {
 			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Could not possible delete a category with a movie constraint key");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Could not possible delete this category, because is a FK");
 		}
 	}
 	
