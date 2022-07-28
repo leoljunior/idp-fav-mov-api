@@ -20,8 +20,8 @@ public class MovieDTO {
 	@JsonView({View.AllAttributes.class, View.SomeAttributes.class})
 	private String title;
 	
-	@JsonView(View.AllAttributes.class)
-	private String year;	
+//	@JsonView(View.AllAttributes.class)
+//	private String year;	
 	
 	@JsonView(View.AllAttributes.class)
 	private String rated;
