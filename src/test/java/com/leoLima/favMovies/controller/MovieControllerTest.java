@@ -2,8 +2,10 @@ package com.leoLima.favMovies.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -11,12 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.reactive.server.WebTestClient.ListBodySpec;
+import org.springframework.web.reactive.function.BodyInserters;
 
 import com.leoLima.favMovies.dtos.MovieDTO;
-import com.leoLima.favMovies.model.Movie;
+import com.leoLima.favMovies.dtos.MovieInputDTO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
@@ -155,6 +156,114 @@ class MovieControllerTest {
 			response.forEach(movie -> assertEquals("action", movie.getCategory()));
 		});
 	}
+	
+	
+	
+	@Test
+	@Order(10)
+	void givenAValidId_whenPutMoviesReceiveARequestWithCategoryParam_thenReturnMovieDTOWithUpdatedCategory() {
+		Map<String, String> category = new HashMap<>();
+		category.put("category", "horror");
+		MovieDTO updatedMovieDTO = webTestClient.put()
+		.uri("/movies/1")
+		.body(BodyInserters.fromValue(category))
+		.exchange()
+		.expectStatus().isOk()
+		.expectBody(MovieDTO.class)
+		.returnResult().getResponseBody();
+		
+		assertEquals(1, updatedMovieDTO.getId());
+		assertEquals("The Dark Knight", updatedMovieDTO.getTitle());
+		assertEquals("18 Jul 2008", updatedMovieDTO.getReleased());
+		assertEquals("movie", updatedMovieDTO.getType());
+		assertEquals("horror", updatedMovieDTO.getCategory());
+	}
+	
+	@Test
+	@Order(11)
+	void givenAValidId_whenPutMoviesReceiveARequestWithInexistentCategoryParam_thenMovieCategoryIsNotUpdated() {
+		Map<String, String> category = new HashMap<>();
+		category.put("category", "comedy");
+				webTestClient.put()
+				.uri("/movies/1")
+				.body(BodyInserters.fromValue(category))
+				.exchange()
+				.expectStatus().isNotFound()
+				.expectBody(String.class)
+				.isEqualTo("Category: comedy not found");
+	}
+	
+	@Test
+	@Order(12)
+	void givenAInvalidId_whenPutMoviesReceiveARequestWithACategoryParam_thenMovieCategoryIsNotUpdated() {
+		Map<String, String> category = new HashMap<>();
+		category.put("category", "horror");
+		
+		webTestClient.put()
+		.uri("/movies/100")
+		.body(BodyInserters.fromValue(category))
+		.exchange()
+		.expectStatus().isNotFound()
+		.expectBody(String.class)
+		.isEqualTo("Movie with ID: 100 not found");
+	}
+	
+	
+	@Test
+	@Order(14)
+	void givenAValidImdbId_whenPostMovieReceiveARequest_thenReturnANewMovieDTO() {
+		MovieInputDTO movieInputDTO = new MovieInputDTO();
+		movieInputDTO.setCategory("comedy");
+		movieInputDTO.setImdbID("tt0898266");
+		
+		MovieDTO createdMovieDTO = webTestClient.post()
+		.uri("/movies")
+		.body(BodyInserters.fromValue(movieInputDTO))
+		.exchange()
+		.expectStatus().isCreated()
+		.expectBody(MovieDTO.class)
+		.returnResult().getResponseBody();
+		
+		assertEquals("tt0898266", createdMovieDTO.getImdbID());
+		assertEquals("comedy", createdMovieDTO.getCategory());
+		assertEquals("The Big Bang Theory", createdMovieDTO.getTitle());
+		assertEquals("series", createdMovieDTO.getType());
+		assertEquals("12", createdMovieDTO.getTotalSeasons());		
+	}
+	
+	@Test
+	@Order(15)
+	void givenAImdbIdThatAlreadyWasCreated_whenPostMovieReceiveARequest_thenReturnConflictStatus() {
+		MovieInputDTO movieInputDTO = new MovieInputDTO();
+		movieInputDTO.setCategory("comedy");
+		movieInputDTO.setImdbID("tt0898266");
+		
+				webTestClient.post()
+				.uri("/movies")
+				.body(BodyInserters.fromValue(movieInputDTO))
+				.exchange()
+				.expectStatus().isEqualTo(409)
+				.expectBody(String.class)
+				.isEqualTo("This movie is already in your favorites");
+	}
+	
+	@Test
+	@Order(16)
+	void givenAInvalidImdbId_whenPostMovieReceiveARequest_thenIsNotReturnANewMovieDTO() {
+		MovieInputDTO movieInputDTO = new MovieInputDTO();
+		movieInputDTO.setCategory("comedy");
+		movieInputDTO.setImdbID("0898266");
+		
+		webTestClient.post()
+		.uri("/movies")
+		.body(BodyInserters.fromValue(movieInputDTO))
+		.exchange()
+		.expectStatus().isNotFound()
+		.expectBody(String.class)
+		.isEqualTo("Movie with IMDb ID: 0898266 not found");
+	}
+	
+	
 	
 	@Test
 	@Order(19)
