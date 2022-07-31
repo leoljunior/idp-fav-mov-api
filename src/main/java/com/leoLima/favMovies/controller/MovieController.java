@@ -66,15 +66,15 @@ public class MovieController {
 	
 	@GetMapping
 	@JsonView(View.SomeAttributes.class)
-	public ResponseEntity<List<MovieDTO>> listAllMovies(@RequestParam(required = false) String category) {
-		if (category == null) {
+	public ResponseEntity<List<MovieDTO>> listAllMovies(@RequestParam(required = false) Optional<String> category) {
+		if (!category.isPresent()) {
 			List<Movie> listAllMovies = movieService.listAllMovies();
 			List<MovieDTO> movieList = listAllMovies.stream()
 				.map(p -> modelMapper.map(p, MovieDTO.class))
 				.collect(Collectors.toList());
 			return ResponseEntity.status(HttpStatus.OK).body(movieList);
 		}
-		List<Movie> listAllMovies = movieService.getMoviesByCategoryName(category);
+		List<Movie> listAllMovies = movieService.getMoviesByCategoryName(category.get());
 		List<MovieDTO> movieList = listAllMovies.stream()
 				.map(p -> modelMapper.map(p, MovieDTO.class))
 				.collect(Collectors.toList());

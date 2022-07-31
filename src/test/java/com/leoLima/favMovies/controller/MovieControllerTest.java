@@ -2,7 +2,6 @@ package com.leoLima.favMovies.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,14 +12,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
 import com.leoLima.favMovies.dtos.MovieDTO;
 import com.leoLima.favMovies.dtos.MovieInputDTO;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 @TestMethodOrder(OrderAnnotation.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class MovieControllerTest {
 
 	@Autowired
@@ -183,14 +184,14 @@ class MovieControllerTest {
 	@Order(11)
 	void givenAValidId_whenPutMoviesReceiveARequestWithInexistentCategoryParam_thenMovieCategoryIsNotUpdated() {
 		Map<String, String> category = new HashMap<>();
-		category.put("category", "comedy");
+		category.put("category", "adventure");
 				webTestClient.put()
 				.uri("/movies/1")
 				.body(BodyInserters.fromValue(category))
 				.exchange()
 				.expectStatus().isNotFound()
 				.expectBody(String.class)
-				.isEqualTo("Category: comedy not found");
+				.isEqualTo("Category: adventure not found");
 	}
 	
 	@Test

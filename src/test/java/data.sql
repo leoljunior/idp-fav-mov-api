@@ -1,5 +1,6 @@
 INSERT INTO CATEGORY(name) VALUES('horror');
 INSERT INTO CATEGORY(name) VALUES('action');
+INSERT INTO CATEGORY(name) VALUES('comedy');
 
 INSERT INTO MOVIE(imdbID, title, rated, released, runtime, genre, director, writer, actors, plot, language, country, awards, poster, imdb_rating, imdb_votes, type, box_office, category_id)
 VALUES('tt0468569', 'The Dark Knight', 'PG-13', '18 Jul 2008', '152 min', 'Action, Crime, Drama', 'Christopher Nolan', 'Jonathan Nolan, Christopher Nolan, David S. Goyer', 'Christian Bale, Heath Ledger, Aaron Eckhart', 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.', 'English', 'United States', 'Won 2 Oscars. 159 wins & 163 nominations total', 'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg', '9.0', '2,574,403', 'movie', '$534,987,076', 2);
