@@ -96,38 +96,6 @@ class MovieControllerTest {
 				.isEqualTo("Movie with ID: 60 not found");
 	}
 
-//	@Test
-//	@Order(2)
-//	void dado2() {
-//		webTestClient.get()
-//		.uri("/movies")
-//		.exchange()
-//			.expectStatus().isOk()
-//			.expectBodyList(Movie.class)
-//			.hasSize(10);
-//	}
-	
-//	@Test
-//	@Order(3)
-//	void dadooooooo() {
-//				webTestClient.get()
-//		    	.uri("/movies")
-//		    	.exchange()
-//		    	.expectStatus().isOk()
-//		    	.expectBody()
-//		    	.jsonPath("$[0].id").isEqualTo("1")
-//		    	.jsonPath("$[0].title").isEqualTo("The Dark Knight")
-//		    	.jsonPath("$[0].released").isEqualTo("18 Jul 2008")
-//		    	.jsonPath("$[0].type").isEqualTo("movie")
-//		    	.jsonPath("$[0].category").isEqualTo("action")
-//		    	
-//				.jsonPath("$[5].id").isEqualTo("6")
-//				.jsonPath("$[5].title").isEqualTo("Star Trek: Strange New Worlds")
-//				.jsonPath("$[5].released").isEqualTo("05 May 2022")
-//				.jsonPath("$[5].type").isEqualTo("series")
-//				.jsonPath("$[5].category").isEqualTo("action");
-//				
-//	}
 
 	
 	@Test
