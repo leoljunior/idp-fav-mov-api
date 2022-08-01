@@ -30,6 +30,9 @@ import com.leoLima.favMovies.services.CategoryService;
 import com.leoLima.favMovies.services.ImdbApiService;
 import com.leoLima.favMovies.services.MovieService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -45,7 +48,12 @@ public class MovieController {
 	
 	private ModelMapper modelMapper;
 	
-	
+	@ApiOperation(value = "Add a new movie on favorite list by category")
+	@ApiResponses(value = {
+			@ApiResponse(code = 201, message = "Movie created.", response = MovieDTO.class),
+			@ApiResponse(code = 404, message = "Movie not found on IMDb API"),
+			@ApiResponse(code = 409, message = "Movie is already on your favorites"),
+	})
 	@PostMapping
 	@JsonView(View.AllAttributes.class)
 	public ResponseEntity<Object> addMovieOnFavorites(@RequestBody @Valid MovieInputDTO movieInputDTO) {		
@@ -64,6 +72,11 @@ public class MovieController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(movieDto);
 	}
 	
+	
+	@ApiOperation(value = "List all movies or list all movies by category param")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Movie list found successfully", response = MovieDTO.class),
+	})
 	@GetMapping
 	@JsonView(View.SomeAttributes.class)
 	public ResponseEntity<List<MovieDTO>> listAllMovies(@RequestParam(required = false) Optional<String> category) {
@@ -81,6 +94,11 @@ public class MovieController {
 			return ResponseEntity.status(HttpStatus.OK).body(movieList);		
 	}
 	
+	@ApiOperation(value = "List a movie by ID")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Movie found successfully", response = MovieDTO.class),
+			@ApiResponse(code = 404, message = "Movie not found on your favorites"),
+	})
 	@GetMapping("/{id}")
 	@JsonView(View.AllAttributes.class)
 	public ResponseEntity<Object> getMovieById(@PathVariable Long id) {
@@ -92,6 +110,11 @@ public class MovieController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie with ID: "+ id +" not found");
 	}
 	
+	@ApiOperation(value = "Delete a movie by ID")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Movie deleted successfully"),
+			@ApiResponse(code = 404, message = "Movie not found"),
+	})
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteMovie(@PathVariable Long id) {
 		Optional<Movie> movieById = movieService.getMovieById(id);
@@ -102,6 +125,11 @@ public class MovieController {
 		return ResponseEntity.status(HttpStatus.OK).body("Movie deleted successfully");
 	}
 	
+	@ApiOperation(value = "Update a movie by ID")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Movie updated successfully"),
+			@ApiResponse(code = 404, message = "Movie or category not found", response = Void.class),
+	})
 	@PutMapping("/{id}")
 	@JsonView(View.SomeAttributes.class)
 	public ResponseEntity<Object> updateMovieCategory(@PathVariable Long id, @RequestBody MovieCategoryInputDTO categoryInputDTO) {

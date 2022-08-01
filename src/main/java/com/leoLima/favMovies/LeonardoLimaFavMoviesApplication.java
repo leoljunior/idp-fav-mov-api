@@ -3,9 +3,10 @@ package com.leoLima.favMovies;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
-@EnableSpringDataWebSupport
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@EnableSwagger2
 @EnableCaching
 @SpringBootApplication
 public class LeonardoLimaFavMoviesApplication {

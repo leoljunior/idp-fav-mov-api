@@ -18,6 +18,9 @@ import com.leoLima.favMovies.dtos.CategoryDTO;
 import com.leoLima.favMovies.model.Category;
 import com.leoLima.favMovies.services.CategoryService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +34,10 @@ public class CategoryController {
 	
 	private ModelMapper modelMapper;
 	
+	@ApiOperation(value = "List all categories")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Category list found successfully", response = CategoryDTO.class),
+	})
 	@GetMapping
 	public ResponseEntity<List<CategoryDTO>> getAllCategories() {
 		List<Category> listAllCategories = categoryService.listaAllCategories();
@@ -40,6 +47,12 @@ public class CategoryController {
 		return ResponseEntity.status(HttpStatus.OK).body(categoriesList);
 	}
 	
+	@ApiOperation(value = "Delete a category by ID")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Category deleted successfully"),
+			@ApiResponse(code = 404, message = "Category not found"),
+			@ApiResponse(code = 409, message = "Category can be not deleted, because is a FK"),
+	})
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteCategory(@PathVariable(required = true) Long id) {
 		
