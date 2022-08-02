@@ -12,9 +12,15 @@ A criação é feita com base na API do IMDb - Internet Movie Database.
 
 ## Requisito
 
-1 - Fazer registro no site http://www.omdbapi.com/apikey.aspx para conseguir ima key.
-2 - Substituir a key no application.properties
-![application.properties](https://photos.google.com/album/AF1QipMme__EhAT2H4JjKDQMFJtMtf_sAbguqBqJfm5-/photo/AF1QipMT_W1ba5n24m7_9QATm86cgZk7bOQ4mkFdEgXZ)
+- Fazer registro no site http://www.omdbapi.com/apikey.aspx para conseguir ima key.
+
+- Substituir a key no application.properties
+
+![application.properties](https://github.com/leoljunior/assets/blob/master/application%20properties.png)
+
+- Subir um container Docker com o MySQL, com o seguinte comando:
+
+docker container run -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=bootdb -p 3306:3306 -p 33060:33060 -d mysql:8
 
 # Tecnologias utilizadas
 ## Back end
