@@ -1,8 +1,11 @@
 package com.leoLima.favMovies.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +16,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.leoLima.favMovies.model.Category;
-import com.leoLima.favMovies.model.Movie;
 import com.leoLima.favMovies.repositories.CategoryRepository;
 
 class CategoryServiceTest {
@@ -30,6 +32,20 @@ class CategoryServiceTest {
 		this.categoryService = new CategoryService(categoryRepository);
 	}
 
+	@Test
+	void whenGetCategoriesReceiveARequest_thenReturnCategoryDTOList() {
+		Category category = createACategory();
+		
+		when(categoryRepository.findAll()).thenReturn(Arrays.asList(category));
+		
+		List<Category> categoriesList = categoryService.listaAllCategories();
+		
+		assertNotNull(categoriesList);
+		assertEquals(1, categoriesList.size());
+		assertEquals(1, categoriesList.get(0).getId());		
+		assertEquals("comedy", categoriesList.get(0).getName());		
+	}
+	
 	@Test
 	void givenAnExistingCategory_whenGetOrCreateCategoryReceiveARequest_thenReturnThisCategory() {
 		Category createACategory = createACategory();

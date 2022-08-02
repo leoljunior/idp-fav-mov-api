@@ -14,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.leoLima.favMovies.dtos.CategoryDTO;
+import com.leoLima.favMovies.dtos.MovieDTO;
 
 @ActiveProfiles("test")
 @TestMethodOrder(OrderAnnotation.class)
@@ -22,7 +23,7 @@ class CategoryControllerTest {
 
 	@Autowired
 	private WebTestClient webTestClient;
-	
+		
 	@Test
 	@Order(2)
 	void whenGetCategoriesReceiveARequest_thenReturnCategoryDTOList() {

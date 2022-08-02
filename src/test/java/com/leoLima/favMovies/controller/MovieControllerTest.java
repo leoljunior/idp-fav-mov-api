@@ -56,6 +56,7 @@ class MovieControllerTest {
 		assertEquals("movie", movieDTOList.get(0).getType());
 		assertEquals("action", movieDTOList.get(0).getCategory());
 	}
+	
 	@Test
 	@Order(3)
 	void givenAValidId_whenGetMoviesReceiveARequest_thenReturnSpecificMovieDTO() {
