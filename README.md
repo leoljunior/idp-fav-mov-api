@@ -12,7 +12,7 @@ A criação é feita com base na API do IMDb - Internet Movie Database.
 
 ## Requisito
 
-- Fazer registro no site http://www.omdbapi.com/apikey.aspx para conseguir ima key.
+- Fazer registro no site http://www.omdbapi.com/apikey.aspx para conseguir uma key.
 
 - Substituir a key no application.properties
 
