@@ -3,6 +3,7 @@ package com.leoLima.favMovies.configs;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-//@Slf4j
 @RestControllerAdvice
 public class ErrorValidationHandler {
 
@@ -31,25 +31,20 @@ public class ErrorValidationHandler {
 			FormErrorDTO error = new FormErrorDTO(e.getField(), msg);
 			formErrorDTOList.add(error);
 		});
-//		StringWriter sw = new StringWriter();
-//		PrintWriter pw = new PrintWriter(sw);
-//		ex.printStackTrace(pw);
-//		log.error(sw.toString());
 		return formErrorDTOList;
 	}
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public FormErrorDTO handle(DataIntegrityViolationException ex) {
-		
-		
-		
 		FormErrorDTO formErrorDTO = new FormErrorDTO("id", ex.getCause().toString());
-		
-		
-		
-		
-		
+		return formErrorDTO;
+	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(JDBCConnectionException.class)
+	public FormErrorDTO handle(JDBCConnectionException ex) {
+		FormErrorDTO formErrorDTO = new FormErrorDTO("", ex.getCause().toString());
 		return formErrorDTO;
 	}
 	
