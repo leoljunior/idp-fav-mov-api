@@ -36,7 +36,7 @@ public class ImdbApiService {
 //	@Cacheable(value = "imdbMovieList")
 	public List<Movie> searchMoviesByTitle(String title) {
 		List<Movie> movieList = new ArrayList<>();
-		Mono<Movie> movieFlux = WebClient.create("http://www.omdbapi.com?apikey=775215e7&s=ring")
+		Mono<Movie> movieFlux = WebClient.create("http://www.omdbapi.com?apikey=" + apiKey + "&s=ring")
 			.method(HttpMethod.GET)
 			.retrieve()
 			.bodyToMono(Movie.class);
