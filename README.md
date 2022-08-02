@@ -29,12 +29,6 @@ docker container run -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=bootdb -p 330
 - JPA / Hibernate
 - Maven
 
-# Como executar o projeto
-
-## Back end
-Pré-requisitos: Java 11
-
-
 # Autor
 
 Leonardo de Lima Junior
