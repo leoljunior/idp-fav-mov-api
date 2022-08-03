@@ -38,7 +38,7 @@ class CategoryServiceTest {
 		
 		when(categoryRepository.findAll()).thenReturn(Arrays.asList(category));
 		
-		List<Category> categoriesList = categoryService.listaAllCategories();
+		List<Category> categoriesList = categoryService.getAllCategories();
 		
 		assertNotNull(categoriesList);
 		assertEquals(1, categoriesList.size());
@@ -99,11 +99,7 @@ class CategoryServiceTest {
 
 		Mockito.verify(categoryRepository).delete(createACategory);
 	}
-	
-	
-	
-	
-	
+		
 	
 	
 	private Category createACategory() {

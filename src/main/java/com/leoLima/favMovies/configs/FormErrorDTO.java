@@ -8,6 +8,7 @@ import lombok.Getter;
 public class FormErrorDTO {
 
 	private String field;
+	
 	private String message;
 	
 }

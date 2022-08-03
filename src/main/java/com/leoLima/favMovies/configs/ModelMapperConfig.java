@@ -11,17 +11,11 @@ import com.leoLima.favMovies.model.Movie;
 public class ModelMapperConfig {
 
 	@Bean
-	public ModelMapper modelMapper() {
-		
-		var modelMapper = new ModelMapper();
-		
-		
+	public ModelMapper modelMapper() {		
+		var modelMapper = new ModelMapper();		
 		modelMapper.createTypeMap(Movie.class, MovieDTO.class)
 			.<String>addMapping(src -> src.getCategory().getName(),
-					(dest, value) -> dest.setCategory(value));
-		
-		
-		
+					(dest, value) -> dest.setCategory(value));			
 		return modelMapper;
 	}
 	

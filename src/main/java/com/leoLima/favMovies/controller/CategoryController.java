@@ -37,10 +37,10 @@ public class CategoryController {
 	@ApiOperation(value = "List all categories")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Category list found successfully", response = CategoryDTO.class),
-	})
+	})	
 	@GetMapping
 	public ResponseEntity<List<CategoryDTO>> getAllCategories() {
-		List<Category> listAllCategories = categoryService.listaAllCategories();
+		List<Category> listAllCategories = categoryService.getAllCategories();
 		List<CategoryDTO> categoriesList = listAllCategories.stream()
 				.map(p -> modelMapper.map(p, CategoryDTO.class))
 				.collect(Collectors.toList());		

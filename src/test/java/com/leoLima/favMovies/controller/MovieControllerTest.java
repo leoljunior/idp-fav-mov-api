@@ -27,20 +27,8 @@ class MovieControllerTest {
 	@Autowired
 	private WebTestClient webTestClient;
 	
-//	@Test
-//	@Order(1)
-//	void whenGetMoviesReceiveARequest_thenReturnMoviesList() {
-//		webTestClient.get()
-//		.uri("/movies")
-//		.exchange()
-//			.expectHeader().contentType(MediaType.APPLICATION_JSON)
-//			.expectStatus().isOk()
-//			.expectBodyList(Movie.class)
-//			.hasSize(10);
-//	}
-	
 	@Test
-	@Order(2)
+	@Order(1)
 	void whenGetMoviesReceiveARequest_thenReturnMovieDTOList() {
 		List<MovieDTO> movieDTOList = webTestClient.get()
 		.uri("/movies")
@@ -58,7 +46,7 @@ class MovieControllerTest {
 	}
 	
 	@Test
-	@Order(3)
+	@Order(2)
 	void givenAValidId_whenGetMoviesReceiveARequest_thenReturnSpecificMovieDTO() {
 		MovieDTO movieDTO = webTestClient.get()
 				.uri("/movies/6")
@@ -87,8 +75,9 @@ class MovieControllerTest {
 		assertEquals("series", movieDTO.getType());
 		assertEquals("action", movieDTO.getCategory());
 	}
+	
 	@Test
-	@Order(4)
+	@Order(3)
 	void givenAInvalidId_whenGetMoviesReceiveARequest_thenIsNotReturnMovieDTO() {
 				webTestClient.get()
 				.uri("/movies/60")
@@ -96,8 +85,6 @@ class MovieControllerTest {
 				.expectBody(String.class)
 				.isEqualTo("Movie with ID: 60 not found");
 	}
-
-
 	
 	@Test
 	@Order(4)
@@ -125,12 +112,10 @@ class MovieControllerTest {
 			assertEquals(6, response.size());
 			response.forEach(movie -> assertEquals("action", movie.getCategory()));
 		});
-	}
-	
-	
+	}	
 	
 	@Test
-	@Order(10)
+	@Order(6)
 	void givenAValidId_whenPutMoviesReceiveARequestWithCategoryParam_thenReturnMovieDTOWithUpdatedCategory() {
 		Map<String, String> category = new HashMap<>();
 		category.put("category", "horror");
@@ -150,21 +135,21 @@ class MovieControllerTest {
 	}
 	
 	@Test
-	@Order(11)
+	@Order(7)
 	void givenAValidId_whenPutMoviesReceiveARequestWithInexistentCategoryParam_thenMovieCategoryIsNotUpdated() {
 		Map<String, String> category = new HashMap<>();
 		category.put("category", "adventure");
-				webTestClient.put()
-				.uri("/movies/1")
-				.body(BodyInserters.fromValue(category))
-				.exchange()
-				.expectStatus().isNotFound()
-				.expectBody(String.class)
-				.isEqualTo("Category: adventure not found");
+		webTestClient.put()
+		.uri("/movies/1")
+		.body(BodyInserters.fromValue(category))
+		.exchange()
+		.expectStatus().isNotFound()
+		.expectBody(String.class)
+		.isEqualTo("Category: adventure not found");
 	}
 	
 	@Test
-	@Order(12)
+	@Order(8)
 	void givenAInvalidId_whenPutMoviesReceiveARequestWithACategoryParam_thenMovieCategoryIsNotUpdated() {
 		Map<String, String> category = new HashMap<>();
 		category.put("category", "horror");
@@ -176,11 +161,10 @@ class MovieControllerTest {
 		.expectStatus().isNotFound()
 		.expectBody(String.class)
 		.isEqualTo("Movie with ID: 100 not found");
-	}
-	
+	}	
 	
 	@Test
-	@Order(14)
+	@Order(9)
 	void givenAValidImdbId_whenPostMovieReceiveARequest_thenReturnANewMovieDTO() {
 		MovieInputDTO movieInputDTO = new MovieInputDTO();
 		movieInputDTO.setCategory("comedy");
@@ -202,23 +186,23 @@ class MovieControllerTest {
 	}
 	
 	@Test
-	@Order(15)
+	@Order(10)
 	void givenAImdbIdThatAlreadyWasCreated_whenPostMovieReceiveARequest_thenReturnConflictStatus() {
 		MovieInputDTO movieInputDTO = new MovieInputDTO();
 		movieInputDTO.setCategory("comedy");
 		movieInputDTO.setImdbID("tt0898266");
 		
-				webTestClient.post()
-				.uri("/movies")
-				.body(BodyInserters.fromValue(movieInputDTO))
-				.exchange()
-				.expectStatus().isEqualTo(409)
-				.expectBody(String.class)
-				.isEqualTo("This movie is already in your favorites");
+		webTestClient.post()
+		.uri("/movies")
+		.body(BodyInserters.fromValue(movieInputDTO))
+		.exchange()
+		.expectStatus().isEqualTo(409)
+		.expectBody(String.class)
+		.isEqualTo("This movie is already in your favorites");
 	}
 	
 	@Test
-	@Order(16)
+	@Order(11)
 	void givenAInvalidImdbId_whenPostMovieReceiveARequest_thenIsNotReturnANewMovieDTO() {
 		MovieInputDTO movieInputDTO = new MovieInputDTO();
 		movieInputDTO.setCategory("comedy");
@@ -231,12 +215,10 @@ class MovieControllerTest {
 		.expectStatus().isNotFound()
 		.expectBody(String.class)
 		.isEqualTo("Movie with IMDb ID: 0898266 not found");
-	}
-	
-	
+	}	
 	
 	@Test
-	@Order(19)
+	@Order(12)
 	void givenAValidId_whenDeleteMoviesReceiveARequest_thenMovieIsNotDeleted() {
 		webTestClient.delete()
 		.uri("/movies/100")
@@ -245,8 +227,9 @@ class MovieControllerTest {
 		.expectBody(String.class)
 		.isEqualTo("Movie with ID: 100 not found");
 	}
+	
 	@Test
-	@Order(20)
+	@Order(13)
 	void givenAValidId_whenDeleteMoviesReceiveARequest_thenMovieIsSucessfullyDeleted() {
 		webTestClient.delete()
 		.uri("/movies/10")

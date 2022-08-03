@@ -14,7 +14,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.leoLima.favMovies.dtos.CategoryDTO;
-import com.leoLima.favMovies.dtos.MovieDTO;
 
 @ActiveProfiles("test")
 @TestMethodOrder(OrderAnnotation.class)
@@ -25,7 +24,7 @@ class CategoryControllerTest {
 	private WebTestClient webTestClient;
 		
 	@Test
-	@Order(2)
+	@Order(1)
 	void whenGetCategoriesReceiveARequest_thenReturnCategoryDTOList() {
 		List<CategoryDTO> categoryDTOs = webTestClient.get()
 		.uri("/categories")
@@ -41,19 +40,19 @@ class CategoryControllerTest {
 	}
 	
 	@Test
-	@Order(6)
+	@Order(2)
 	void givenAInexistentCategory_whenDeleteCategoriesReceiveARequest_thenCategoryIsNotDeleted() {
-		         webTestClient.delete()
-				.uri("/categories/10")
-				.exchange()
-				.expectStatus().isNotFound()
-				.expectBody(String.class)
-				.isEqualTo("Category with ID: 10 not found");
+         webTestClient.delete()
+		.uri("/categories/10")
+		.exchange()
+		.expectStatus().isNotFound()
+		.expectBody(String.class)
+		.isEqualTo("Category with ID: 10 not found");
 		
 	}
 	
 	@Test
-	@Order(7)
+	@Order(3)
 	void givenAValidCategory_whenDeleteCategoriesReceiveARequest_thenCategoryIsDeleted() {
 		webTestClient.delete()
 		.uri("/categories/3")
@@ -65,7 +64,7 @@ class CategoryControllerTest {
 	}
 	
 	@Test
-	@Order(7)
+	@Order(4)
 	void givenACategoryWithHasARelationshipWithAnotherTable_whenDeleteCategoriesReceiveARequest_thenCategoryIsNotDeleted() {
 		webTestClient.delete()
 		.uri("/categories/2")

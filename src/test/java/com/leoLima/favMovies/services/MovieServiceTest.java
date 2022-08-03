@@ -124,13 +124,7 @@ class MovieServiceTest {
 		
 		Mockito.verify(mockMovieRepository).delete(movie);
 	}
-	
-	
-	
-	
-	
-	
-	
+		
 	
 	
 	

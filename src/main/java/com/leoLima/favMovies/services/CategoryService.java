@@ -18,8 +18,16 @@ public class CategoryService {
 
 	private CategoryRepository categoryRepository;
 	
-	public List<Category> listaAllCategories() {
+	public List<Category> getAllCategories() {
 		return categoryRepository.findAll();
+	}
+	
+	public Optional<Category> getCategoryById(Long id) {
+		return categoryRepository.findById(id);
+	}
+	
+	public Optional<Category> getCategoryByName(String name) {
+		return categoryRepository.findByName(name.toLowerCase());
 	}
 	
 	@Transactional
@@ -31,16 +39,9 @@ public class CategoryService {
 		return categoryRepository.save(new Category(categoryName.toLowerCase()));
 	}
 	
-	public Optional<Category> getCategoryById(Long id) {
-		return categoryRepository.findById(id);
-	}
-	
 	@Transactional
 	public void deleteCategory(Category category) {
 		categoryRepository.delete(category);
-	}
+	}	
 	
-	public Optional<Category> getCategoryByName(String name) {
-		return categoryRepository.findByName(name.toLowerCase());
-	}
 }
