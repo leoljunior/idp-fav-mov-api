@@ -28,6 +28,8 @@ docker-compose up --build --force-recreate
 - Spring Boot
 - JPA / Hibernate
 - Maven
+- MySQL
+- Docker
 
 # Autor
 
