@@ -59,13 +59,16 @@ public class MovieDTO {
 	@JsonView(View.AllAttributes.class)
 	private String imdbRating;
 	
+	@JsonView({View.AllAttributes.class, View.SomeAttributes.class})
+	private String metascore;
+	
 	@JsonView(View.AllAttributes.class)
 	private String imdbVotes;
 	
 	@JsonView({View.AllAttributes.class, View.SomeAttributes.class})
 	private String type;
 	
-	@JsonView(View.AllAttributes.class)
+	@JsonView({View.AllAttributes.class, View.SomeAttributes.class})
 	private String totalSeasons;
 	
 	@JsonView(View.AllAttributes.class)

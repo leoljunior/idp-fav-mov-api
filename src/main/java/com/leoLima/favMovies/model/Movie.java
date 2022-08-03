@@ -63,6 +63,9 @@ public class Movie {
 	@JsonProperty("imdbRating")
 	private String imdbRating;
 	
+	@JsonProperty("Metascore")
+	private String metascore;
+	
 	@JsonProperty("imdbVotes")
 	private String imdbVotes;
 	

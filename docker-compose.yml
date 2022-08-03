@@ -20,9 +20,9 @@ services:
       image: leonardojunior/fav-movie
       container_name: fav-movie
       ports:
-         - 8081:8081
+         - 8080:8080
       environment:
-         - PORT=8081
+         - PORT=8080
          - MYSQL_CONTAINER=mysql
          - SPRING_PROFILES_ACTIVE=prod 
       networks:
