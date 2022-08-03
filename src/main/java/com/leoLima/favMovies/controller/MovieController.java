@@ -35,6 +35,14 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 
+/**
+ * 
+ * @author leonardoljr
+ * 
+ * Controller layer class that handles movies
+ *
+ */
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/movies")
@@ -48,6 +56,13 @@ public class MovieController {
 	
 	private ModelMapper modelMapper;
 	
+	/**
+	 * 
+	 * This method is used to added a new movie on a movie list by category
+	 * 
+	 * @param movieInputDTO
+	 * @return MovieDTO.class
+	 */	
 	@ApiOperation(value = "Add a new movie on favorite list by category")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Movie created.", response = MovieDTO.class),
@@ -72,7 +87,13 @@ public class MovieController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(movieDto);
 	}
 	
-	
+	/**
+	 * 
+	 * This method return all movies or all movies by category if a category parameter is inserted 
+	 * 
+	 * @param category
+	 * @return List<MovieDTO>
+	 */
 	@ApiOperation(value = "List all movies or list all movies by category param")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Movie list found successfully", response = MovieDTO.class),
@@ -94,6 +115,13 @@ public class MovieController {
 			return ResponseEntity.status(HttpStatus.OK).body(movieList);		
 	}
 	
+	/**
+	 * 
+	 * This method return a specific movies by id with all its attributes
+	 * 
+	 * @param id
+	 * @return MovieDTO.class
+	 */
 	@ApiOperation(value = "List a movie by ID")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Movie found successfully", response = MovieDTO.class),
@@ -110,6 +138,13 @@ public class MovieController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie with ID: "+ id +" not found");
 	}
 	
+	/**
+	 * 
+	 * This method is used to delete a movie from list
+	 * 
+	 * @param id
+	 * @return HttpStatus.OK
+	 */
 	@ApiOperation(value = "Delete a movie by ID")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Movie deleted successfully"),
@@ -123,8 +158,16 @@ public class MovieController {
 		}
 		movieService.deleteMovie(movieById.get());
 		return ResponseEntity.status(HttpStatus.OK).body("Movie deleted successfully");
-	}
+	}	
 	
+	/**
+	 * 
+	 * This method is used to update a movie category
+	 * 
+	 * @param id
+	 * @param categoryInputDTO
+	 * @return MovieDTO.class
+	 */
 	@ApiOperation(value = "Update a movie by ID")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Movie updated successfully"),

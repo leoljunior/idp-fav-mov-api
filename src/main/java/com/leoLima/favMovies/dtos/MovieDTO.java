@@ -7,6 +7,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 
+ * @author leonardoljr
+ * 
+ * Class used to return the movie to client
+ *
+ */
 @Getter @Setter
 @JsonInclude(Include.NON_NULL)
 public class MovieDTO {

@@ -8,6 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import com.leoLima.favMovies.model.Movie;
 
+/**
+ * 
+ * Inteface that represents the Movie repository and extends JPA Repository
+ * 
+ * @author leonardoljr
+ *
+ */
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 

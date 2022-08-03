@@ -9,6 +9,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 
+ * Class that define the entity Category model
+ * 
+ * @author leonardoljr
+ *
+ */
 @Data
 @Entity
 @NoArgsConstructor

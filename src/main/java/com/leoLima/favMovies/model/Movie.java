@@ -10,6 +10,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
+/**
+ * 
+ * Class that define the entity Movie model
+ * 
+ * @author leonardoljr
+ *
+ */
 @Data
 @Entity
 public class Movie {

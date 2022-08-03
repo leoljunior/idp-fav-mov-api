@@ -10,6 +10,14 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+/**
+ * 
+ * @author leonardoljr
+ * 
+ * Class used to configure swagger
+ *
+ */
+
 @Configuration
 public class SwaggerConfigs {
 
@@ -17,6 +25,13 @@ public class SwaggerConfigs {
 	final String apiTitle = "My Favorites Movies";
 	final String apiDescription = "API that allows the customer to create a list of favorite movies using the IMDb API(Internet Movie Database)";
 
+	/**
+	 * 
+	 * Method that configure and build a Docket
+	 * 
+	 * @return Docket.class
+	 */
+	
 	@Bean
 	public Docket docket() {
 		return new Docket(DocumentationType.SWAGGER_2)

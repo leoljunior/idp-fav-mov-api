@@ -7,9 +7,25 @@ import org.springframework.context.annotation.Configuration;
 import com.leoLima.favMovies.dtos.MovieDTO;
 import com.leoLima.favMovies.model.Movie;
 
+/**
+ * 
+ * @author leonardoljr
+ * 
+ * Class used to return a model mapper to convert dto/entities
+ *
+ */
+
 @Configuration
 public class ModelMapperConfig {
 
+	/**
+	 * 
+	 * Method to configure model mapper
+	 * 
+	 * @return ModelMapper.class
+	 * 
+	 */
+	
 	@Bean
 	public ModelMapper modelMapper() {		
 		var modelMapper = new ModelMapper();		

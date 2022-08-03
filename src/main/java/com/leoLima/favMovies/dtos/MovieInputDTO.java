@@ -7,6 +7,13 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 
+ * @author leonardoljr
+ * 
+ * Class used to receive movie from client
+ *
+ */
 @Getter @Setter
 public class MovieInputDTO {
 

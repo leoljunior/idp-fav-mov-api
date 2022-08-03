@@ -7,6 +7,13 @@ import org.springframework.stereotype.Repository;
 
 import com.leoLima.favMovies.model.Category;
 
+/**
+ * 
+ * Inteface that represents the Category repository and extends JPA Repository
+ * 
+ * @author leonardoljr
+ *
+ */
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 

@@ -24,6 +24,14 @@ import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 
+ * @author leonardoljr
+ * 
+ * Controller layer class that handles categories
+ *
+ */
+
 @Slf4j
 @AllArgsConstructor
 @RestController
@@ -34,6 +42,13 @@ public class CategoryController {
 	
 	private ModelMapper modelMapper;
 	
+	/**
+	 *
+	 * This method returns a list with all categories
+	 * 
+	 * @return CategoryDTO.class
+	 * 
+	 */	
 	@ApiOperation(value = "List all categories")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Category list found successfully", response = CategoryDTO.class),
@@ -47,6 +62,14 @@ public class CategoryController {
 		return ResponseEntity.status(HttpStatus.OK).body(categoriesList);
 	}
 	
+	/**
+	 * This method is used to delete a category by id. The category isn't deleted if it is a foreign key in another table
+	 * 
+	 * @param id
+	 * 
+	 * @return HTTP.Status.ok
+	 *	  	 
+	 */	
 	@ApiOperation(value = "Delete a category by ID")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Category deleted successfully"),
